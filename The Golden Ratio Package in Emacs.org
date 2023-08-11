@@ -1,0 +1,69 @@
+#+title: golden-ratio package
+#+OPTIONS: \n:t
+#+STARTUP: showall
+#+DATE: Created on 14 June 2023 @07:04
+
+https://youtu.be/k5Nwwo4QTmI
+
+Splits windows in such a way that it gives more space to the current window. More intuitive way of creating windows in Emacs.
+
+How I came to it:
+
+https://www.thedigitalcatonline.com/blog/2020/07/18/emacs-configuration-for-python-javascript-terraform-and-blogging/
+
+Where to find it:
+
+https://github.com/roman/golden-ratio.el
+
+What it does:
+
+By default, when working with multiple windows at the same time, each window sometimes seems to have a size that is not convenient for editing. With ~golden-ratio~ the window that has the main focus is resized to have the perfect size for editing, while the ones that are not being actively edited will be re-sized to a smaller size that does not get in the way, but at the same time will be readable enough to know it's content. It is build on the mathematical concept of golden ratio. It appears in various fields, including art, architecture, and nature.
+
+https://en.wikipedia.org/wiki/Golden_ratio
+
+#+begin_src emacs-lisp
+  (require 'golden-ratio)
+
+  (golden-ratio-mode 1)
+#+end_src
+
+#+RESULTS:
+: t
+
+*Special scenarios*
+
+If you use a large screen and have very wide frames golden-ratio tends to make wide windows, in which case set the variable below which will keep window widths reasonable regardless of the frame size:
+
+~(setq golden-ratio-auto-scale t)~
+
+Also, when working with files that are required to have a maximum line width or when writing text it is sometimes good to have a fixed width on the window you are typing in. This means the content displayed within the window will not exceed a specified width, which can be helpful for maintaining readability and preventing lines of text from becoming too long.
+
+For example when editing files it is nice to set:
+
+~(setq golden-ratio-max-width 100)~
+
++---------------------------------+---------------------------------+
+| This is an example line of text | This is another example line of |
+| that exceeds the maximum line   | text that also exceeds the      |
+| width of 100 characters. It     | maximum line width of 100       |
+| will be wrapped within the      | characters. It will be wrapped  |
+| specified width when            | within the specified width when |
+| `golden-ratio-max-width` is set | `golden-ratio-max-width` is set |
+| to 100.                         | to 100.                         |
++---------------------------------+---------------------------------+
+
+To have two empty buffers on the side when you write, you could set:
+
+~(setq golden-ratio-max-width 72)~
+
++-------------------+-----------------------+-------------------+
+|                   |                       |                   |
+|                   |  Distraction-Free     |                   |
+|                   |    Writing Area       |                   |
+|                   |     (72 characters)   |                   |
+|                   |                       |                   |
+|                   |                       |                   |
+|                   |                       |                   |
+|                   |                       |                   |
+|                   |                       |                   |
++-------------------+-----------------------+-------------------+

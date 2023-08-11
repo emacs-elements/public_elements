@@ -1,0 +1,181 @@
+#+title: Switching Gears in Emacs: A Guide to Evil Mode
+#+OPTIONS: \n:t
+#+STARTUP: showall
+#+DATE: Created on 16 June 2023 @14:08
+
+https://youtu.be/9D-k2oSxlpU
+
+* Why use ~evil-mode~?
+
+* How to install evil-mode
+#+begin_src emacs-lisp
+;; Set up package.el to work with MELPA
+(require 'package)
+(add-to-list 'package-archives
+		 '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(package-refresh-contents)
+
+;; Download Evil
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
+#+end_src
+
+* The basics
+
+You know you are in evil mode by the trajectory Vim follows when you hit ~RET~ you get ~evil-ret~
+
+*Note: Emacs commands still work! So you have double the power.*
+e.g. ~^~ and ~C-a~ take you to end of line
+e.g. ~C-l~ centers the screen, as does ~zz~
+e.g. ~C-s~ and ~/~ search forward (isearch-forward versus evil-search-forward)
+
+~Esc~ puts you in ~Normal Mode~
+~i~ puts you in ~Insert Mode~
+~E~ Puts you into Emacs state. A state that mimics default Emacs behaviour, by eliminating all vi bindings, except for ~C-z~, to re-enter normal state.
+~C-z~ lets you toggle between Normal and Emacs Mode
+
+~RET~ takes you down a line
+~-~ takes you up a line
+~h j k l~
+~G~ takes you to the end of the buffer~
+~gg~ takes you to the beginning
+
+~u~ will undo
+
+~O~ will open up a new line above
+~o~ will open a new line below
+
+~v~ is combined with movement keys to select text
+~y~ will yank/copy text
+~p~ will paste copied text in Normal Mode
+~C-r "~ pastes text in insert mode
+~r~ will replace a Character
+
+~yy~ will copy a line
+~dd~ will delete a line
+
+~zz~ moves current line to middle of screen
+~zt~ moves current line to top of screen
+
+~H~ moves the cursor to top of screen
+~M~ to the middle
+~L~ to the bottom
+
+~:w~ will save the current buffer
+~I~ insert text at beginning of line
+~A~ append text at the end of a line
+~x~ delete the character under the cursor
+
+~/~ search forward (combine with ~M-p~)
+~?~ search backward
+
+~C-w~ deletes a word in insert mode
+~C-u~ deletes to indentation (if customized as below)
+	
+~C-q TAB~ inserts a TAB character
+	
+(setq-default tab-width 4)
+
+~.~ will repeat the last action (like C-x z in Emacs)
+
+* Customizing the behaviour of evil-mode
+
+~(setq evil-shift-width 0)~ ;; Determines the number of columns by which a line is shifted using the operators > and <.
+~(setq evil-want-C-u-delete)~ ;; This works in conjunction with C-w which deletes last word.
+~(setq evil-want-Y-yank-to-eol t)~ ;; yanks the text from the cursor position to the end of the line, excluding the newline character
+
+This is an example ...
+C-u now deletes back to indentation in insert state
+
+* Evil Documentation
+
+https://readthedocs.org/projects/evil/downloads/pdf/latest/
+https://www.emacswiki.org/emacs/Evil
+
+* My Evil Settings
+
+#+begin_src emacs-lisp
+;; EVIL MODE SETTINGS
+	;; Download and install Evil Mode
+	(unless (package-installed-p 'evil)
+	(package-install 'evil))
+
+	;; Enable Evil Mode
+	(setq evil-default-state 'normal)
+	(setq evil-want-C-u-scroll t)
+	(setq evil-want-Y-yank-to-eol t)
+	(require 'evil)
+	(evil-mode 1)
+
+	;; Setting a leader key in evil-mode (,)
+	(evil-set-leader 'normal (kbd ","))
+	(evil-define-key 'normal 'global (kbd "<leader>s") 'save-buffer)
+	(evil-define-key 'normal 'global (kbd "<leader>q") 'kill-this-buffer)
+
+	;; Evil surround package
+	(unless (package-installed-p 'evil-surround)
+	(package-refresh-contents)
+	(package-install 'evil-surround))
+	(require 'evil-surround)
+	(global-evil-surround-mode 1)
+
+	(setq evil-shift-width 4) ;; number of columns by which line shifts using > and <.
+	(setq evil-want-C-u-delete t) ;; This works in conjunction with C-w which deletes last word.
+	(setq evil-want-Y-yank-to-eol t) ;; Yanks line, excluding the newline character.
+
+	(with-eval-after-load 'evil-surround
+	(add-to-list 'evil-surround-pairs-alist '(?\* . ("**" . "**")))
+	(add-to-list 'evil-surround-pairs-alist '(?~ . ("~~" . "~~")))
+	(add-to-list 'evil-surround-pairs-alist '(?\" . ("\"" . "\""))))
+	;; Comment out lines in Emacs Vim style
+	(use-package evil-nerd-commenter
+	:ensure t
+	:bind ("M-;" . evilnc-comment-or-uncomment-lines))
+	(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
+#+end_src
+;; EVIL MODE SETTINGS
+	;; Download and install Evil Mode
+	(unless (package-installed-p 'evil)
+	(package-install 'evil))
+
+	;; Enable Evil Mode
+	(setq evil-default-state 'normal)
+	(setq evil-want-C-u-scroll t)
+	(setq evil-want-Y-yank-to-eol t)
+	(require 'evil)
+	(evil-mode 1)
+
+	;; Setting a leader key in evil-mode (,)
+	(evil-set-leader 'normal (kbd ","))
+	(evil-define-key 'normal 'global (kbd "<leader>s") 'save-buffer)
+	(evil-define-key 'normal 'global (kbd "<leader>q") 'kill-this-buffer)
+
+	;; Treat wrapped line scrolling as single lines
+	(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+	(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+
+	;; Evil surround package
+	(unless (package-installed-p 'evil-surround)
+	(package-refresh-contents)
+	(package-install 'evil-surround))
+	(require 'evil-surround)
+	(global-evil-surround-mode 1)
+
+	(setq evil-shift-width 4) ;; number of columns by which line shifts using > and <.
+	(setq evil-want-C-u-delete t) ;; This works in conjunction with C-w which deletes last word.
+
+	(with-eval-after-load 'evil-surround
+	(add-to-list 'evil-surround-pairs-alist '(?\* . ("**" . "**")))
+	(add-to-list 'evil-surround-pairs-alist '(?~ . ("~~" . "~~")))
+	(add-to-list 'evil-surround-pairs-alist '(?\" . ("\"" . "\""))))
+	;; Comment out lines in Emacs Vim style
+	(use-package evil-nerd-commenter
+	:ensure t
+	:bind ("M-;" . evilnc-comment-or-uncomment-lines))
+	(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
+
