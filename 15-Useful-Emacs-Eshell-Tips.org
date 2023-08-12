@@ -72,6 +72,8 @@ Sme Alias examples:
 
 Eshell writes out the alias definitions to the ~eshell-aliases-file~, usu. in ~.emacs.d/~
 
+https://git.savannah.gnu.org/cgit/emacs.git/commit/etc/NEWS?id=f1942c298cd05f0a739a0c5fff4fc90dc566ae79
+
 #+begin_src emacs-lisp
 ;; Update alias file after editing, no restart required
 (global-set-key (kbd "C-c u") 'eshell-read-aliases-list)
@@ -143,3 +145,5 @@ e.g. ambulance
           (lambda ()
             (eshell/alias "911" "grep -ri $1 c:/tan/contacts.txt")))
 #+end_src
+
+* 
