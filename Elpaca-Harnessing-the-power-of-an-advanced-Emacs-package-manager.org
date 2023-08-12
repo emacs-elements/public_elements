@@ -1,0 +1,247 @@
+#+title: Elpaca: Harnessing the power of an advanced Emacs package manager
+#+OPTIONS: \n:t
+#+STARTUP: showall
+#+DATE: Created on 8 June 2023 @09:28
+
+https://youtu.be/YHZ_jRUkp38
+
+* Benefits
+
+Installs packages asynchronously
+
+Can install multiple packages at the same time
+
+Install packages from original source
+
+Provides a user-friendly interface to help one find and manage packages easily
+
+Comes with support for thousands of packages by default, including popular sources like MELPA, NonGNU/GNU ELPA, and Org/org-contrib
+
+Makes it simple for users to create their own package repositories, known as ELPAs. This can be handy if you're creating and sharing your own packages.
+
+Install very latest packages: Test
+
+https://sachachua.com/blog/category/emacs-news/
+
+* To install
+
+** Add a line to early-init.el
+
+#+begin_src emacs-lisp
+(setq package-enable-at-startup nil)
+#+end_src
+
+** Get information about installed packages from init.el
+
+#+begin_example
+'(package-selected-packages
+  '(dired-launch nov vertico restart-emacs counsel visual-regexp swiper python-mode org-babel-eval-in-repl lorem-ipsum persistent-scratch pdf-tools ag 0blayout all-the-icons-dired all-the-icons nerd-icons-dired bbww devil diminish helm multiple-cursors github-dark-vscode-theme color-theme-modern yasnippet yaml-mode use-package unfill markdown-mode))
+#+end_example
+
+** Remove all package.el related code in your init file
+
+#+begin_example
+(require 'package)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+#+end_example
+
+#+begin_src emacs-lisp
+  (defvar elpaca-installer-version 0.4)
+  (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+  (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+  (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+  (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+				:ref nil
+				:files (:defaults (:exclude "extensions"))
+				:build (:not elpaca--activate-package)))
+  (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+	 (build (expand-file-name "elpaca/" elpaca-builds-directory))
+	 (order (cdr elpaca-order))
+	 (default-directory repo))
+    (add-to-list 'load-path (if (file-exists-p build) build repo))
+    (unless (file-exists-p repo)
+      (make-directory repo t)
+      (when (< emacs-major-version 28) (require 'subr-x))
+      (condition-case-unless-debug err
+	  (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+		   ((zerop (call-process "git" nil buffer t "clone"
+					 (plist-get order :repo) repo)))
+		   ((zerop (call-process "git" nil buffer t "checkout"
+					 (or (plist-get order :ref) "--"))))
+		   (emacs (concat invocation-directory invocation-name))
+		   ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+					 "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+		   ((require 'elpaca))
+		   ((elpaca-generate-autoloads "elpaca" repo)))
+	      (kill-buffer buffer)
+	    (error "%s" (with-current-buffer buffer (buffer-string))))
+	((error) (warn "%s" err) (delete-directory repo 'recursive))))
+    (unless (require 'elpaca-autoloads nil t)
+      (require 'elpaca)
+      (elpaca-generate-autoloads "elpaca" repo)
+      (load "./elpaca-autoloads")))
+  (add-hook 'after-init-hook #'elpaca-process-queues)
+  (elpaca `(,@elpaca-order))
+#+end_src
+
+** Persistent packages
+
+If you want the packages you install with Elpaca to be available every time you start Emacs, not just in the current session, you need to use the Elpaca macro in your init.el file. This needs to be done after you have added the code that installs Elpaca itself.
+
+#+begin_src emacs-lisp
+  ;; Use-package support
+  ;; Install use-package support
+  (elpaca elpaca-use-package
+    ;; Enable :elpaca use-package keyword.
+    (elpaca-use-package-mode)
+    ;; Assume :elpaca t unless otherwise specified.
+    (setq elpaca-use-package-by-default t))
+
+  ;; Block until current queue processed.
+  (elpaca-wait)
+#+end_src
+
+** Examples of how a use-package config would change with Elpaca:
+
+Here are a few examples of how my use-package config would change if I switch from package.el to Elpaca:
+
+#+begin_src emacs-lisp
+    (use-package whisper
+	    :elpaca nil ;; ADDED because it installs from a local load path
+	    :load-path "/home/red/Source/whisper.el"
+	    :bind ("M-s r" . whisper-run)
+	    :config
+	    (setq whisper-model "base"
+	    whisper-language "en"
+	    whisper-translate nil)
+	    (setq whisper-arecord-device "hw:2,0")
+	    (setq whisper-arecord-args '("-f" "cd" "-c" "1")))
+
+  ;;; Ag the Silver Searcher
+  (use-package ag
+	  :elpaca t
+	  :config
+	  (setq ag-ignore-list
+	  '("rmail"
+		  "history"
+		  "elpa"
+		  "cache"
+		  "backups"
+		  "eshell"
+		  "OMNIVERSE.org"
+		  "*~"
+		  "acme/"
+		  "Downloads/"
+		  "Desktop/everyone.txt"
+		  "EMACS-INFO.md"
+		  "LINUX.md"
+		  "emacs.d/history(1).txt"
+		  "backups"))
+	  (setq ag-highlight-search t))
+#+end_src
+
+Note: Because we want to set ~elpaca-use-package-by-default t~, we need not add ~:elpaca t~
+
+Note: Be careful with the order of the packages. Some packages might depend on others to be installed first.
+
+Note: If you want elpaca *not* to manage a specific package, you would declare it as follows:
+
+#+begin_src emacs-lisp
+(use-package some-package :elpaca nil)
+#+end_src
+
+* The elpaca ui mode
+
+Elpaca has a UI mode available for managing packages. The mode allows special keys for accessing certain commands. The main entry points to the UI are the
+
+~elpaca-manager~
+~elpaca-log~
+~elpaca-status~
+
+These commands are also available in the regular manner when *not* in elpaca-ui-mode via M-x + command.
+
+elpaca-try -- "try out" a package by installing it for the current Emacs session only
+elpaca-update-all -- update all installed packages in your Emacs configuration
+elpaca-rebuild
+elpaca-delete
+elpaca-log
+elpaca-status
+elpaca-visit
+elpaca-browse
+
+* Trying packages for the session
+
+elpaca-manager
+
+s -- to search
+#unique #!installed (=not installed) "projectile"
+
+i -- mark for install
+x -- to install
+
+* Installing packages using provided recipes
+
+elpaca-manager
+
+elpaca-info
+
+elpaca-recipe
+
+Copy recipe information
+
+* My configuration with examples
+
+#+begin_src emacs-lisp
+  ;; Elpaca
+  (defvar elpaca-installer-version 0.4)
+  (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+  (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+  (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+  (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+				:ref nil
+				:files (:defaults (:exclude "extensions"))
+				:build (:not elpaca--activate-package)))
+  (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+	 (build (expand-file-name "elpaca/" elpaca-builds-directory))
+	 (order (cdr elpaca-order))
+	 (default-directory repo))
+    (add-to-list 'load-path (if (file-exists-p build) build repo))
+    (unless (file-exists-p repo)
+      (make-directory repo t)
+      (when (< emacs-major-version 28) (require 'subr-x))
+      (condition-case-unless-debug err
+	  (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+		   ((zerop (call-process "git" nil buffer t "clone"
+					 (plist-get order :repo) repo)))
+		   ((zerop (call-process "git" nil buffer t "checkout"
+					 (or (plist-get order :ref) "--"))))
+		   (emacs (concat invocation-directory invocation-name))
+		   ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+					 "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+		   ((require 'elpaca))
+		   ((elpaca-generate-autoloads "elpaca" repo)))
+	      (kill-buffer buffer)
+	    (error "%s" (with-current-buffer buffer (buffer-string))))
+	((error) (warn "%s" err) (delete-directory repo 'recursive))))
+    (unless (require 'elpaca-autoloads nil t)
+      (require 'elpaca)
+      (elpaca-generate-autoloads "elpaca" repo)
+      (load "./elpaca-autoloads")))
+  (add-hook 'after-init-hook #'elpaca-process-queues)
+  (elpaca `(,@elpaca-order))
+
+  ;; Block until current queue processed.
+  (elpaca-wait)
+  
+  ;; Installed packages
+  (elpaca yasnippet)
+  (elpaca pdf-tools)
+  (elpaca (projectile :host github :repo "bbatsov/projectile"))
+  (elpaca (whisper :fetcher github :repo "natrys/whisper.el" :branch "master"))
+  (elpaca (nov :fetcher github :repo "wasamasa/nov.el" :branch "master"))
+  (elpaca (markdown-mode (:package "markdown-mode" :protocol https :inherit t :depth 1 :fetcher github :repo "jrblevin/markdown-mode" :files ("*.el" "*.el.in" "dir" "*.info" "*.texi" "*.texinfo" "doc/dir" "doc/*.info" "doc/*.texi" "doc/*.texinfo" "lisp/*.el" (:exclude ".dir-locals.el" "test.el" "tests.el" "*-test.el" "*-tests.el" "LICENSE" "README*" "*-pkg.el")))))
+  (elpaca (rainbow-delimiters (:package "rainbow-delimiters" :protocol https :inherit t :depth 1 :fetcher github :repo "Fanael/rainbow-delimiters" :files ("*.el" "*.el.in" "dir" "*.info" "*.texi" "*.texinfo" "doc/dir" "doc/*.info" "doc/*.texi" "doc/*.texinfo" "lisp/*.el" (:exclude ".dir-locals.el" "test.el" "tests.el" "*-test.el" "*-tests.el" "LICENSE" "README*" "*-pkg.el")))))
+  (elpaca (spacious-padding (:package "spacious-padding" :protocol https :inherit t :depth 1 :host github :files ("*" (:exclude ".git")) :repo "emacs-straight/spacious-padding")))
+#+end_src
