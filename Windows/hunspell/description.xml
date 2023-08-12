@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description xmlns="http://openoffice.org/extensions/description/2006" xmlns:d="http://openoffice.org/extensions/description/2006"  xmlns:xlink="http://www.w3.org/1999/xlink">
+ 
+    <version value="2023.03.01" />
+    <identifier value="org.openoffice.en.hunspell.dictionaries" />
+	
+    <display-name>
+        <name lang="en">English spelling dictionaries, hyphenation rules, thesaurus, and grammar checker</name>
+		<name lang="fr">Dictionnaires d'orthographe, des synonymes, de grammaire et règle de coupure des mots anglais</name>
+		<name lang="de">Englisches Wörterbuch für Rechtschreibprüfung, Silbentrennung, Thesaurus und Grammatikprüfung</name>
+		<name lang="es">Inglés: correctores ortográficos y gramaticales, sinónimos y reglas de división de palabras</name>
+		<name lang="pt">Dicionário ortográfico, sinónimos, regras de hifenização e verificação gramatical em inglês</name>
+		<name lang="pt-BR">Dicionário ortográfico, sinônimos, regras de hifenização e verificação gramatical em inglês</name>
+		<name lang="it">Dizionari ortografici inglesi, regole di sillabazione, dizionario di sinonimi e analizzatore grammaticale</name>
+    </display-name>
+	
+    <platform value="all" />
+
+    <dependencies>
+        <OpenOffice.org-minimal-version value="3.4" d:name="OpenOffice.org 3.4" />
+    </dependencies>
+	
+    <icon>
+        <default xlink:href="English.png" />
+    </icon>
+
+    <publisher>
+		<name xlink:href="https://extensions.libreoffice.org/extensions/english-dictionaries" lang="en">Marco A.G.Pinto</name>
+    </publisher>
+	
+</description>
+
