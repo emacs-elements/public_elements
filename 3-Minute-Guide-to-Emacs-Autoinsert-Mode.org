@@ -1,0 +1,36 @@
+#+title: 3-Minute Guide to Emacs Autoinsert Mode
+#+OPTIONS: \n:t
+#+STARTUP: showall
+#+DATE: Created on 23 May 2023 @18:51
+Auto-insert-mode allows you to define boilerplate content for specific file types. When you create a new file that matches a configured file type or pattern, auto-insert-mode automatically inserts the predefined template at the beginning of the file. This is useful for automatically generating common or standard content when creating new files. For example, you can set up auto-insert-mode to insert a header with author information, date, and other predefined text when creating a new source code file or document.
+
+To get it to work:
+
+Put ~(auto-insert-mode t)~ into your init file
+
+Customize the variable ~auto-insert-alist~
+
+Two examples:
+
+#+begin_src emacs-lisp
+(define-auto-insert "\\.org\\'"
+  (lambda ()
+    (let ((title (read-string "Enter title: ")))
+      (insert "#+title: " title "\n"
+              "#+OPTIONS: \\n:t\n"
+              "#+STARTUP: showall\n"
+              "#+DATE: Created on " (format-time-string "%-d %B %Y @%H:%M") "\n\n")
+      (newline)
+      (goto-char (point-max)))))
+
+(define-auto-insert "\\.sh\\'"
+  (lambda ()
+    (insert "#!/bin/bash\n\n"
+            "# Description: \n"
+            "# Author: \n"
+            "# Date: " (format-time-string "%Y-%m-%d") "\n\n"
+            "# Add your script code here\n")
+    (search-forward "Description: ")
+    (forward-word)
+    (forward-char)))
+#+end_src
