@@ -1,0 +1,146 @@
+#+title: Emacs Macros: All You Need to Know
+
+https://youtu.be/qHaEkTZ3XCk
+
+A keyboard macro is a command defined by an Emacs user to stand for sequence of keys. Keyboard macros differ from ordinary Emacs commands in that they are written in the Emacs command language rather than Lisp.
+
+Note: *The keyboard macro prefix: C-x C-k*
+
+*The most important commands when it comes to macros*
+
+~F3~ Starts a macro recording
+
+~F4~ Ends the definition of macro
+
+~F4~ Runs the macro on a second invocation.
+
+Note these two roles of the F4 command: ~(kmacro-end-or-call-macro)~
+
+*Note: The word "def" appears in red in the mode line when a macro is being defined/recorded.*
+
+To append more commands to an existing macro definition:
+
+~C-u F3~ Re-execute last keyboard macro, then append keys to its definition.
+
+~C-u C-u F3~ Append keys to the last keyboard macro without re-executing it.
+
+To repeat a macro on each line in a region use: ~C-x C-k r (apply-macro-to-region-lines)~
+
+_This command obviates the need to make moving to a new line and to the beginning of that line a part of a macro._
+
+~C-x C-k d~ re-triggers a display, i.e. refreshes the screen (useful with long macros)
+
+Macros understand and record *minibuffer* commands and can work across buffers.
+
+For example:
+
+=F3 C-a C-k C-x b foo RET C-y C-x b RET F4=
+
+The macro explained:
+
+C-a Goes to beginning of the line
+
+C-k Kills line
+
+C-x b foo RET Creates a buffer 'foo'
+
+C-y Yanks the line
+
+C-x b RET Returns to the previous buffer
+
+F4 Ends the Macro
+
+Note: Some keyboard commands do not work as usual when recording a macro and mouse events are unreliable.
+
+All macros are recorded in the _keyboard macro ring_. One can cycle the macros in this ring and execute them:
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Keyboard-Macro-Ring.htm
+
+*The Macro Counter*
+
+The macro counter in Emacs keeps track of the number of times a keyboard macro has been executed AND can insert this count into the buffer during each execution, incrementing with each iteration.
+
+Example: one can use a macro to create an ordered list.
+
+#+begin_example
+C-x C-k C-c - To set the keyboard macro counter (kmacro-set-counter)
+F3 F3 . C-j F4
+#+end_example
+
+1.
+   
+2.
+   
+3.
+   
+4.
+   
+5.
+   
+6.
+   
+7.
+   
+8.
+   
+9.
+   
+10. 
+
+*Note the second invocation of f3*
+
+*Executing Macros with Variations*
+
+To allow variations in your macro run the command ~C-x q~ at the point where you want the variable to occur. During macro definition, C-x q does nothing, but when you run the macro later, C-x q asks you interactively whether you wish to continue.
+
+The possible responses to the query are:
+
+SPC (or y): Continue executing the keyboard macro.
+DEL (or n): Skip the remainder of this repetition of the macro and start the next repetition.
+RET (or q): Cancel the current repetition and all further repetitions.
+C-r: Enter a recursive editing level where you can do some editing that is not part of the macro. After you finish, you exit the recursive edit with C-M-c, Emacs will ask you again whether to continue with the macro.
+
+*This feature is also helpful for allowing you to pause a check that the macro is working as you want.* 
+
+#+begin_example
+Hello, Raoul!
+Hello, World!
+#+end_example
+
+C-x C-k n gives a command name to the most recently defined keyboard macro (kmacro-name-last-macro). This lasts for the session only.
+
+C-x C-k b binds the most recently defined keyboard macro to a key sequence (kmacro-bind-to-key). This lasts for the session only.
+
+*TIP* A good way of binding is to use the macro prefix and the numbers 1-9:
+
+C-x C-k b 1
+
+Then run C-x C-k 1
+
+Then run C-x z
+
+*Insert Macro into the buffer*
+
+M-x insert-kbd-macro inserts in the buffer a keyboard macro’s definition, as Lisp code.
+
+#+begin_example
+(defalias 'test
+	 (kmacro "H e l l o , SPC C-x q w o r l d ! C-j"))
+#+end_example
+
+*How to use a macro across sessions as its own command*
+
+- first use ~insert-kbd-macro~ as above, and then,
+- Bind using global set key as in: ~(global-set-key (kbd "C-c u") 'test)~
+
+*Editing a Keyboard Macro*
+
+C-x C-k C-e edits the last defined keyboard macro (kmacro-edit-macro)
+
+C-x C-k e name RET edits a previously defined keyboard macro name
+
+C-x C-k l edits the last 300 keystrokes as a keyboard macro (kmacro-edit-lossage). Emacs takes the last 300 keystrokes you made and opens a new buffer with a representation of these keystrokes. You can then edit this sequence of commands as you like and save it as a keyboard macro for later use.
+
+You can interactively replay and edit the last keyboard macro, one command at a time, by typing C-x C-k SPC (kmacro-step-edit-macro)
+
+
