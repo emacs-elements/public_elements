@@ -1,0 +1,77 @@
+#+title: Basic introduction to Emacs Calc
+#+OPTIONS: \n:t
+#+OPTIONS: toc:nil
+#+STARTUP: showall
+#+DATE: Created on 13 May 2023 @04:35
+
+https://youtu.be/ibv2e2o8ov8
+
+C-x * c - To start Calc
+
+4 WAYS TO PERFORM CALCULATIONS
+
+*Reverse Polish Notation* (RPN) is a way of writing mathematical expressions that uses a stack to store numbers. In RPN, you enter the operands (value) first, then the operator (the symbol that performs an operation). For example, to add 2 and 3, you would enter 2, 3, and then +. Calc is a calculator that supports RPN.
+
+DEL is used to clear/erase the result
+
+Type 2 RET 3 + Q to compute the square root of 2+3, which is 2.2360679775
+
+Type P 2 ^ to compute the value of ‘pi’ squared, 9.86960440109
+
+Type TAB to exchange the order of these two results
+
+*Algebraic calculation*. You can also enter calculations using conventional “algebraic” notation. To enter an algebraic formula, use the apostrophe key (')
+
+Type ' sqrt(2+3) RET to compute the square root of 2+3
+
+One can have algebraic mode by invoking m a
+
+Note that if the formula begins with a function name (such as sqrt), you need to use the apostrophe even if you are in Algebraic mode.
+
+Calc gives ‘/’ lower precedence than ‘*’, so that ‘a/b*c’ is interpreted as ‘a/(b*c)’
+
+In an algebraic formula, $ represents the number on the top of the stack
+
+The notations $$, $$$, and so on stand for higher stack entries
+
+*Keypad mode*. If you are using the X window system, press C-x * k to get Keypad mode. (If you don’t use X, skip to the next section.)
+
+*Grabbing data*. 
+
+15450
+24563
+18338
+
+C-x * g. Then type V R + to add the numbers
+
+Also a special grab-and-sum-columns command, C-x * :
+
+Type d B to view the solutions in more readable notation
+
+You don’t really need the second RET in 2 RET 3 RET +. 2 RET 3 + will work just as well.
+
+To clear the stack: M-0 DEL
+
+To exit C-x ** is the same command as to start C-x **
+
+U is undo (shift-u)
+D is redo
+
+You can think of undo and redo as a sort of “time machine.” Press U to go backward in time, D to go forward. 
+
+The trail records everything we have recorded since we loaded the Calculator t d
+
+To navigate the trail:
+
+t ] Go to the trail
+t p Move to the previous item 
+t n Move to the next item
+t y yank number back to the stack
+
+t r trail search reverse
+you can now press C-s or C-r to continue the search forwards or backwards as you like
+to finish the search press RET and t y 
+
+C-g cancels
+
+
