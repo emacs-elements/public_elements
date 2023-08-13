@@ -85,7 +85,7 @@ F3 F3 . C-j F4
    
 9.
    
-10. 
+10.
 
 *Note the second invocation of f3*
 
