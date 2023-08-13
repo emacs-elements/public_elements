@@ -1,0 +1,6 @@
+INSTALL EMACS ON NOMAD BSD
+``````````````````````````
+https://youtu.be/pHcUWwg4xPo
+https://nomadbsd.org/
+https://www.youtube.com/watch?v=NM0oou1KYY8
+
