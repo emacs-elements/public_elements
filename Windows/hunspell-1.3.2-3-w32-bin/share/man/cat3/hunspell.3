@@ -1,0 +1,202 @@
+hunspell(3)                                                        hunspell(3)
+
+
+
+NNAAMMEE
+       hhuunnssppeellll  -  spell  checking,  stemming,  morphological  generation and
+       analysis
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee <<hhuunnssppeellll//hhuunnssppeellll..hhxxxx>> //** oorr **//
+       ##iinncclluuddee <<hhuunnssppeellll//hhuunnssppeellll..hh>>
+
+       HHuunnssppeellll((ccoonnsstt cchhaarr **_a_f_f_p_a_t_h,, ccoonnsstt cchhaarr **_d_p_a_t_h));;
+
+       HHuunnssppeellll((ccoonnsstt cchhaarr **_a_f_f_p_a_t_h,, ccoonnsstt cchhaarr **_d_p_a_t_h,, ccoonnsstt cchhaarr ** _k_e_y));;
+
+       ~~HHuunnssppeellll((_)_;
+
+       iinntt aadddd__ddiicc((ccoonnsstt cchhaarr **_d_p_a_t_h));;
+
+       iinntt aadddd__ddiicc((ccoonnsstt cchhaarr **_d_p_a_t_h,, ccoonnsstt cchhaarr **_k_e_y));;
+
+       iinntt ssppeellll((ccoonnsstt cchhaarr **_w_o_r_d));;
+
+       iinntt ssppeellll((ccoonnsstt cchhaarr **_w_o_r_d,, iinntt **_i_n_f_o,, cchhaarr ****_r_o_o_t));;
+
+       iinntt ssuuggggeesstt((cchhaarr******_s_l_s_t,, ccoonnsstt cchhaarr **_w_o_r_d_)_;
+
+       iinntt aannaallyyzzee((cchhaarr******_s_l_s_t,, ccoonnsstt cchhaarr **_w_o_r_d_)_;
+
+       iinntt sstteemm((cchhaarr******_s_l_s_t,, ccoonnsstt cchhaarr **_w_o_r_d_)_;
+
+       iinntt sstteemm((cchhaarr******_s_l_s_t,, cchhaarr ****_m_o_r_p_h,, iinntt _n_)_;
+
+       iinntt ggeenneerraattee((cchhaarr******_s_l_s_t,, ccoonnsstt cchhaarr **_w_o_r_d,, ccoonnsstt cchhaarr **_w_o_r_d_2_)_;
+
+       iinntt ggeenneerraattee((cchhaarr******_s_l_s_t,, ccoonnsstt cchhaarr **_w_o_r_d,, cchhaarr ****_d_e_s_c,, iinntt _n_)_;
+
+       vvooiidd ffrreeee__lliisstt((cchhaarr ******_s_l_s_t,, iinntt _n_)_;
+
+       iinntt aadddd((ccoonnsstt cchhaarr **_w_o_r_d_)_;
+
+       iinntt aadddd__wwiitthh__aaffffiixx((ccoonnsstt cchhaarr **_w_o_r_d,, ccoonnsstt cchhaarr **_e_x_a_m_p_l_e_)_;
+
+       iinntt rreemmoovvee((ccoonnsstt cchhaarr **_w_o_r_d_)_;
+
+       cchhaarr ** ggeett__ddiicc__eennccooddiinngg((_)_;
+
+       ccoonnsstt cchhaarr ** ggeett__wwoorrddcchhaarrss((_)_;
+
+       uunnssiiggnneedd sshhoorrtt ** ggeett__wwoorrddcchhaarrss__uuttff1166((iinntt **_l_e_n_)_;
+
+       ssttrruucctt ccss__iinnffoo ** ggeett__ccssccoonnvv((_)_;
+
+       ccoonnsstt cchhaarr ** ggeett__vveerrssiioonn((_)_;
+
+DDEESSCCRRIIPPTTIIOONN
+       The HHuunnssppeellll library  routines  give  the  user  word-level  linguistic
+       functions:  spell  checking  and  correction,  stemming,  morphological
+       generation and analysis in item-and-arrangement style.
+
+       The optional C header contains the C interface of the C++ library  with
+       Hunspell_create and Hunspell_destroy constructor and destructor, and an
+       extra  HunHandle  parameter  (the  allocated  object)  in  the  wrapper
+       functions (see in the C header file hhuunnssppeellll..hh).
+
+       The  basic  spelling  functions,  ssppeellll(()) and ssuuggggeesstt(()) can be used for
+       stemming, morphological generation and analysis by XML input texts (see
+       XML API).
+
+   CCoonnssttrruuccttoorr aanndd ddeessttrruuccttoorr
+       Hunspell's  constructor  needs paths of the affix and dictionary files.
+       See the hhuunnssppeellll(4) manual page for the  dictionary  format.   Optional
+       kkeeyy  parameter  is  for  dictionaries encrypted by the hhzziipp tool of the
+       Hunspell distribution.
+
+   EExxttrraa ddiiccttiioonnaarriieess
+       The add_dic() function  load  an  extra  dictionary  file.   The  extra
+       dictionaries  use  the  affix  file  of  the allocated Hunspell object.
+       Maximal number of the extra dictionaries is limited in the source  code
+       (20).
+
+   SSppeelllliinngg aanndd ccoorrrreeccttiioonn
+       The  spell() function returns non-zero, if the input word is recognised
+       by the spell checker, and a  zero  value  if  not.  Optional  reference
+       variables  return  a  bit  array  (info) and the root word of the input
+       word.  Info bits checked with the  SPELL_COMPOUND,  SPELL_FORBIDDEN  or
+       SPELL_WARN  macros sign compound words, explicit forbidden and probably
+       bad words.  From version 1.3, the non-zero return value is  2  for  the
+       dictionary words with the flag "WARN" (probably bad words).
+
+       The  suggest()  function has two input parameters, a reference variable
+       of the output suggestion list, and an input word. The function  returns
+       the  number of the suggestions. The reference variable will contain the
+       address of the newly allocated suggestion list or NULL, if  the  return
+       value  of  suggest()  is  zero.  Maximal  number  of the suggestions is
+       limited in the source code.
+
+       The spell() and suggest() can recognize XML  input,  see  the  XML  API
+       section.
+
+   MMoorrpphhoollooggiiccaall ffuunnccttiioonnss
+       The  plain stem() and analyze() functions are similar to the suggest(),
+       but  instead  of  suggestions,  return  stems  and   results   of   the
+       morphological  analysis. The plain generate() waits a second word, too.
+       This  extra  word  and  its  affixation  will  be  the  model  of   the
+       morphological generation of the requested forms of the first word.
+
+       The  extended  stem() and generate() use the results of a morphological
+       analysis:
+
+              char ** result, result2;
+              int n1 = analyze(&result, "words");
+              int n2 = stem(&result2, result, n1);
+
+       The morphological annotation of the Hunspell  library  has  fixed  (two
+       letter and a colon) field identifiers, see the hhuunnssppeellll(4) manual page.
+
+              char ** result;
+              char * affix = "is:plural"; // description depends from dictionaries, too
+              int n = generate(&result, "word", &affix, 1);
+              for (int i = 0; i < n; i++) printf("%s0, result[i]);
+
+   MMeemmoorryy ddeeaallllooccaattiioonn
+       The  free_list()  function  frees  the  memory  allocated by suggest(),
+       analyze, generate and stem() functions.
+
+   OOtthheerr ffuunnccttiioonnss
+       The add(), add_with_affix() and remove()  are  helper  functions  of  a
+       personal  dictionary  implementation  to  add and remove words from the
+       base dictionary in run-time. The add_with_affix() uses a second word as
+       a model of the enabled affixation of the new word.
+
+       The  get_dic_encoding()  function  returns "ISO8859-1" or the character
+       encoding defined in the affix file with the "SET" keyword.
+
+       The get_csconv() function returns the 8-bit character case table of the
+       encoding of the dictionary.
+
+       The  get_wordchars()  and  get_wordchars_utf16()  return the extra word
+       characters definied in affix file for tokenization by  the  "WORDCHARS"
+       keyword.
+
+       The get_version() returns the version string of the library.
+
+   XXMMLL AAPPII
+       The   spell()   function  returns  non-zero  for  the  "<?xml?>"  input
+       indicating the XML API support.
+
+       The suggest() function stems, analyzes and generates the forms  of  the
+       input word, if it was added by one of the following "SPELLML" syntaxes:
+
+              <?xml?>
+              <query type="analyze">
+              <word>dogs</word>
+              </query>
+
+              <?xml?>
+              <query type="stem">
+              <word>dogs</word>
+              </query>
+
+              <?xml?>
+              <query type="generate">
+              <word>dog</word>
+              <word>cats</word>
+              </query>
+
+              <?xml?>
+              <query type="generate">
+              <word>dog</word>
+              <code><a>is:pl</a><a>is:poss</a></code>
+              </query>
+
+       The  outputs  of  the type="stem" query and the stem() library function
+       are the same. The output  of  the  type="analyze"  query  is  a  string
+       contained  a <code><a>result1</a><a>result2</a>...</code> element. This
+       element can be used in the second syntax of the type="generate" query.
+
+EEXXAAMMPPLLEE
+       See analyze.cxx in the Hunspell distribution.
+
+AAUUTTHHOORRSS
+       Hunspell   based   on   Ispell's   spell   checking   algorithms    and
+       OpenOffice.org's Myspell source code.
+
+       Author of International Ispell is Geoff Kuenning.
+
+       Author of MySpell is Kevin Hendricks.
+
+       Author of Hunspell is LÃ¡szlÃ³ NÃ©meth.
+
+       Author of the original C API is Caolan McNamara.
+
+       Author  of the Aspell table-driven phonetic transcription algorithm and
+       code is BjÃ¶rn Jacke.
+
+       See also THANKS and Changelog files of Hunspell distribution.
+
+
+
+                                  2011-02-01                       hunspell(3)

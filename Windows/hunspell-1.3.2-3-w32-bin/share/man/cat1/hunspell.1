@@ -1,0 +1,332 @@
+hunspell(1)                                                        hunspell(1)
+
+
+
+NNAAMMEE
+       hunspell - spell checker, stemmer and morphological analyzer
+
+SSYYNNOOPPSSIISS
+       hunspell   [-1aDGHhLlmnrstvw]   [--check-url]   [-d   dict[,dict2,...]]
+       [--help] [-i enc] [-p dict] [-vv] [--version] [file(s)]
+
+DDEESSCCRRIIPPTTIIOONN
+       _H_u_n_s_p_e_l_l is fashioned after the _I_s_p_e_l_l program.  The most common  usage
+       is "hunspell" or "hunspell filename".  Without filename parameter, hun‐
+       spell checks the standard input.  Typing "cat" and  "exsample"  in  two
+       input  lines, we got an asterisk (it means "cat" is a correct word) and
+       a line with corrections:
+
+              $ hunspell -d en_US
+              Hunspell 1.2.3
+              *
+              & exsample 4 0: example, examples, ex sample, ex-sample
+
+       Correct words signed with an '*', '+' or '-', unrecognized words signed
+       with '#' or '&' in output lines (see later).  (Close the standard input
+       with Ctrl-d on Unix/Linux and Ctrl-Z Enter or Ctrl-C on Windows.)
+
+       With filename parameters, _h_u_n_s_p_e_l_l will display each word of the  files
+       which  does  not  appear in the dictionary at the top of the screen and
+       allow you to change it.  If there are "near misses" in the  dictionary,
+       then  they  are  also  displayed on following lines.  Finally, the line
+       containing the word and the previous line are printed at the bottom  of
+       the  screen.   If  your terminal can display in reverse video, the word
+       itself is highlighted.  You have the option of replacing the word  com‐
+       pletely,  or  choosing  one of the suggested words. Commands are single
+       characters as follows (case is ignored):
+
+              R      Replace the misspelled word completely.
+
+              Space  Accept the word this time only.
+
+              A      Accept the word for the rest of this _h_u_n_s_p_e_l_l session.
+
+              I      Accept the word, capitalized as it is in  the  file,  and
+                     update private dictionary.
+
+              U      Accept  the word, and add an uncapitalized (actually, all
+                     lower-case) version to the private dictionary.
+
+              S      Ask a stem and a model word and store them in the private
+                     dictionary.   The  stem  will  be  accepted also with the
+                     affixes of the model word.
+
+              0-_n    Replace with one of the suggested words.
+
+              X      Write the rest of this file, ignoring  misspellings,  and
+                     start next file.
+
+              Q      Exit immediately and leave the file unchanged.
+
+              ^Z     Suspend hunspell.
+
+              ?      Give help screen.
+
+OOPPTTIIOONNSS
+       --11     Check only first field in lines (delimiter = tabulator).
+
+       --aa     The --aa option is intended to be used from other programs through
+              a pipe.  In this mode, _h_u_n_s_p_e_l_l prints a one-line version  iden‐
+              tification message, and then begins reading lines of input.  For
+              each input line, a single line is written to the standard output
+              for each word checked for spelling on the line.  If the word was
+              found in the main dictionary, or your personal dictionary,  then
+              the  line  contains  only  a '*'.  If the word was found through
+              affix removal, then the line contains a '+', a  space,  and  the
+              root  word.   If  the  word was found through compound formation
+              (concatenation of two words, then the line contains only a '-'.
+
+              If the word is not in the dictionary, but there are near misses,
+              then  the  line contains an '&', a space, the misspelled word, a
+              space, the number of  near  misses,  the  number  of  characters
+              between  the beginning of the line and the beginning of the mis‐
+              spelled word, a colon, another space, and a  list  of  the  near
+              misses separated by commas and spaces.
+
+              Also,  each  near  miss  or guess is capitalized the same as the
+              input word unless such capitalization is illegal; in the  latter
+              case  each  near  miss is capitalized correctly according to the
+              dictionary.
+
+              Finally, if the word does not  appear  in  the  dictionary,  and
+              there are no near misses, then the line contains a '#', a space,
+              the misspelled word, a space, and the character offset from  the
+              beginning  of  the  line.  Each sentence of text input is termi‐
+              nated with an additional blank line,  indicating  that  _h_u_n_s_p_e_l_l
+              has completed processing the input line.
+
+              These output lines can be summarized as follows:
+
+              OK:    *
+
+              Root:  + <root>
+
+              Compound:
+                     -
+
+              Miss:  & <original> <count> <offset>: <miss>, <miss>, ...
+
+              None:  # <original> <offset>
+
+              For  example,  a  dummy  dictionary containing the words "fray",
+              "Frey",  "fry",  and  "refried"  might  produce  the   following
+              response to the command "echo 'frqy refries | hunspell -a":
+              (#) Hunspell 0.4.1 (beta), 2005-05-26
+              & frqy 3 0: fray, Frey, fry
+              & refries 1 5: refried
+
+              This  mode is also suitable for interactive use when you want to
+              figure out the spelling of  a  single  word  (but  this  is  the
+              default behavior of hunspell without -a, too).
+
+              When  in  the --aa mode, _h_u_n_s_p_e_l_l will also accept lines of single
+              words prefixed with any of '*', '&', '@', '+',  '-',  '~',  '#',
+              '!',  '%', '`', or '^'.  A line starting with '*' tells _h_u_n_s_p_e_l_l
+              to insert the word into the user's dictionary (similar to the  I
+              command).   A line starting with '&' tells _h_u_n_s_p_e_l_l to insert an
+              all-lowercase version of the word  into  the  user's  dictionary
+              (similar  to  the  U  command).  A line starting with '@' causes
+              _h_u_n_s_p_e_l_l to accept this word in the future  (similar  to  the  A
+              command).  A line starting with '+', followed immediately by tteexx
+              or nnrrooffff will cause _h_u_n_s_p_e_l_l to parse future input according the
+              syntax  of  that  formatter.   A line consisting solely of a '+'
+              will place _h_u_n_s_p_e_l_l in TeX/LaTeX mode (similar to the --tt option)
+              and '-' returns _h_u_n_s_p_e_l_l to nroff/troff mode (but these commands
+              are obsolete).   However,  the  string  character  type  is  _n_o_t
+              changed; the '~' command must be used to do this.  A line start‐
+              ing with '~' causes _h_u_n_s_p_e_l_l to set internal parameters (in par‐
+              ticular,  the  default string character type) based on the file‐
+              name given in the rest of the line.  (A file  suffix  is  suffi‐
+              cient,  but the period must be included.  Instead of a file name
+              or suffix, a unique name, as listed in the language affix  file,
+              may  be  specified.)   However,  the  formatter  parsing  is _n_o_t
+              changed;  the '+' command must be used to change the  formatter.
+              A  line  prefixed with '#' will cause the personal dictionary to
+              be saved.  A line prefixed with '!' will turn on _t_e_r_s_e mode (see
+              below),  and  a  line  prefixed with '%' will return _h_u_n_s_p_e_l_l to
+              normal (non-terse) mode.  A line prefixed with '`' will turn  on
+              verbose-correction  mode (see below); this mode can only be dis‐
+              abled by turning on terse mode with '%'.
+
+              Any input following the prefix characters '+',  '-',  '#',  '!',
+              '%',  or  '`' is ignored, as is any input following the filename
+              on a '~' line.  To allow spell-checking of lines beginning  with
+              these  characters,  a  line starting with '^' has that character
+              removed before it is passed to the spell-checking code.   It  is
+              recommended  that programmatic interfaces prefix every data line
+              with an uparrow to protect themselves against future changes  in
+              _h_u_n_s_p_e_l_l.
+
+              To summarize these:
+
+
+
+              *      Add to personal dictionary
+
+              @      Accept word, but leave out of dictionary
+
+              #      Save current personal dictionary
+
+              ~      Set parameters based on filename
+
+              +      Enter TeX mode
+
+              -      Exit TeX mode
+
+              !      Enter terse mode
+
+              %      Exit terse mode
+
+              `      Enter verbose-correction mode
+
+              ^      Spell-check rest of line
+
+              In _t_e_r_s_e mode, _h_u_n_s_p_e_l_l will not print lines beginning with '*',
+              '+', or '-', all of which indicate correct words.  This signifi‐
+              cantly  improves running speed when the driving program is going
+              to ignore correct words anyway.
+
+              In _v_e_r_b_o_s_e_-_c_o_r_r_e_c_t_i_o_n mode, _h_u_n_s_p_e_l_l includes the original  word
+              immediately after the indicator character in output lines begin‐
+              ning with '*', '+', and '-', which  simplifies  interaction  for
+              some programs.
+
+
+       ----cchheecckk--uurrll
+              Check URLs, e-mail addresses and directory paths.
+
+
+       --DD     Show  detected  path  of  the loaded dictionary, and list of the
+              search path and the available dictionaries.
+
+
+       --dd ddiicctt,,ddiicctt22,,......
+              Set dictionaries by their base  names  with  or  without  paths.
+              Example of the syntax:
+
+       -d en_US,en_geo,en_med,de_DE,de_med
+
+       en_US and de_DE are base dictionaries, they consist of aff and dic file
+       pairs: en_US.aff, en_US.dic and de_DE.aff, de_DE.dic.  En_geo,  en_med,
+       de_med  are special dictionaries: dictionaries without affix file. Spe‐
+       cial dictionaries are optional extension of the base dictionaries  usu‐
+       ally  with  special (medical, law etc.)  terms. There is no naming con‐
+       vention for special dictionaries, only the ".dic" extension: dictionar‐
+       ies  without affix file will be an extension of the preceding base dic‐
+       tionary (right order of the parameter list needs for good suggestions).
+       First item of -d parameter list must be a base dictionary.
+
+
+       --GG     Print only correct words or lines.
+
+
+       --HH     The input file is in SGML/HTML format.
+
+
+       --hh,, ----hheellpp
+              Short help.
+
+
+       --ii eenncc Set input encoding.
+
+
+       --LL     Print lines with misspelled words.
+
+
+       --ll     The  "list" option is used to produce a list of misspelled words
+              from the standard input.
+
+
+       --mm     Analyze the words of the input text (see also hunspell(4)  about
+              morphological  analysis). Without dictionary morphological data,
+              signs the flags of the affixes of the word forms for  dictionary
+              developers.
+
+
+       --nn     The input file is in nroff/troff format.
+
+
+       --PP ppaasssswwoorrdd
+              Set password for encrypted dictionaries.
+
+
+       --pp ddiicctt
+              Set path of personal dictionary.  The default dictionary depends
+              on the locale settings. The following environment variables  are
+              searched:  LC_ALL,  LC_MESSAGES,  and LANG. If none are set then
+              the default personal dictionary is $HOME/.hunspell_default.
+
+              Setting _-_d or  the _D_I_C_T_I_O_N_A_R_Y environmental  variable,  personal
+              dictionary will be $$HHOOMMEE//..hhuunnssppeellll__ddiiccnnaammee
+
+
+       --rr     Warn  of  the  rare words, wich are also potential spelling mis‐
+              takes.
+
+
+       --ss     Stem the words of the input text  (see  also  hunspell(4)  about
+              stemming). It depends from the dictionary data.
+
+
+       --tt     The input file is in TeX or LaTeX format.
+
+
+       --vv,, ----vveerrssiioonn
+              Print version number.
+
+
+       --vvvv    Print ispell(1) compatible version number.
+
+
+       --ww     Print misspelled words (= lines) from one word/line input.
+
+
+EEXXAAMMPPLLEESS
+       hhuunnssppeellll --dd eenn__UUSS eenngglliisshh..hhttmmll
+
+       hhuunnssppeellll --dd eenn__UUSS,,eenn__UUSS__mmeedd mmeeddiiccaall..ttxxtt
+
+       hhuunnssppeellll --dd ~~//ooppeennooffffiiccee..oorrgg22..44//sshhaarree//ddiicctt//oooooo//ddee__DDEE
+
+       hhuunnssppeellll **..hhttmmll
+
+       hhuunnssppeellll --ll tteexxtt..hhttmmll
+
+EENNVVIIRROONNMMEENNTT
+       DDIICCTTIIOONNAARRYY
+              Similar to _-_d_.
+
+       DDIICCPPAATTHH
+              Dictionary path.
+
+       WWOORRDDLLIISSTT
+              Equivalent to _-_p_.
+
+FFIILLEESS
+       The  default  dictionary  depends on the locale settings. The following
+       environment variables are searched: LC_ALL, LC_MESSAGES, and  LANG.  If
+       none are set then the following fallbacks are used:
+
+       //uussrr//sshhaarree//mmyyssppeellll//ddeeffaauulltt..aaffff  Path  of  default  affix file. See hun‐
+       spell(4).
+
+       //uussrr//sshhaarree//mmyyssppeellll//ddeeffaauulltt..ddiicc Path of default  dictionary  file.   See
+       hunspell(4).
+
+       $$HHOOMMEE//..hhuunnssppeellll__ddeeffaauulltt..  Default path to personal dictionary.
+
+SSEEEE AALLSSOO
+       hhuunnssppeellll ((33)),, hhuunnssppeellll((44))
+
+AAUUTTHHOORR
+       Author  of  Hunspell  executable  is  LÃ¡szlÃ³  NÃ©meth.  For  Hunspell
+       library, see hunspell(3).
+
+       This manual based on Ispell's manual. See ispell(1).
+
+BBUUGGSS
+       There are some layout problems with long lines.
+
+
+
+                                  2011-01-21                       hunspell(1)
