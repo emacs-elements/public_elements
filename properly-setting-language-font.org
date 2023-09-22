@@ -1,0 +1,32 @@
+#+title: Properly Settings one's language environment and font in Emacs (in Linux)
+#+OPTIONS: \n:t
+#+STARTUP: showall
+#+DATE: Created on 21 September 2023 @18:24
+
+Two important defaults:
+
+Language environment to UTF
+
+Font
+
+Are these set through =init.el=, as in:
+
+=(set-language-environment 'utf-8)=
+
+No!
+
+For UTF add this line to =.bashrc=
+
+=export LANG=en_US.UTF-8=
+
+https://emacs.stackexchange.com/questions/78300/what-utf-8-settings-need-to-be-explicitly-set-in-dot-emacs/78305#78305
+
+For font, set the default font through =.Xresources=
+
+=Emacs.font: Hack-13=
+
+https://emacsredux.com/blog/2023/03/16/setting-the-default-font-for-emacs/
+
+If on Windows, add this to dot emacs:
+
+=(set-frame-font "Cascadia Code 28" nil t)=
