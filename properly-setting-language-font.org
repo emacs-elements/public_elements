@@ -18,4 +18,5 @@ https://emacsredux.com/blog/2023/03/16/setting-the-default-font-for-emacs/
 If on Windows, add these to dot emacs:
 
 =(set-frame-font "Cascadia Code 28" nil t)=
+
 =(set-language-environment 'utf-8)=
