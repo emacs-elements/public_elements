@@ -20,11 +20,6 @@ Where your config files are stored
 		"dictionary": "Packages/Language - English/en_GB.dic",
 	"line_numbers": false,
 	"font_size": 13,
-	"ignored_packages":
-	[
-		"TextToSpeech",
-		"Vintage",
-	],
 }
 #+end_src
 
@@ -97,8 +92,6 @@ InsertDate: Provides commands to insert the current date and/or time in various 
         "keys": ["ctrl+k", "ctrl+t"],
         "command": "title_case"
     },
-    { "keys": ["ctrl+alt+e"], "command": "espeak" },
-    { "keys": ["escape"], "command": "stop_espeak" },
     {
     "keys": ["alt+2"],
     "command": "move",
