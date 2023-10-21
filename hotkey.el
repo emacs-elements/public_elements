@@ -1,3 +1,5 @@
+;; URL: https://youtu.be/LqrBAnUVl6c
+
 (defun jump-out-of-pair ()
 	(interactive)
 	(let ((found (search-forward-regexp "[])}\"'`*=]" nil t)))

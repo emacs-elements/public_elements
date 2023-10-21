@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://youtu.be/fwmthSyTM_4
+
 # A SCRIPT TO RUN A FRESH INSTALL OF EMACS 30 WITH NATIVE COMPILATION AHEAD OF TIME (AOT)
 
 # First make sure you enable sources in your Linux Distro. On Linux Mint: Software sources, Source code repos - enable

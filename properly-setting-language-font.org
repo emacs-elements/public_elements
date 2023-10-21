@@ -3,6 +3,8 @@
 #+STARTUP: showall
 #+DATE: Created on 21 September 2023 @18:24
 
+https://youtu.be/WuWkAJRrbCo
+
 For UTF add this line to =.bashrc=
 
 =export LANG=en_US.UTF-8=

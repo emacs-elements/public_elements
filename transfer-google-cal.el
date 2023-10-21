@@ -1,3 +1,5 @@
+;; URL: https://youtu.be/-1p9t67hjhk
+
 (require 'icalendar)
 
 (setq diary-file "~/.emacs.d/diary")
