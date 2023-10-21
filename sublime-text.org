@@ -1,0 +1,108 @@
+#+title: Setting up Sublime Text Properly in Linux
+#+STARTUP: showall
+#+DATE: Created on 21 October 2023 @10:16
+
+https://www.sublimetext.com/docs/linux_repositories.html
+
+Enter licence information
+
+Install package control
+
+Preferences Settings: JSON Format
+
+Where your config files are stored
+
+#+begin_src JSON
+  {
+	"spell_check": true,
+	"show_line_endings": true,	
+	"show_encoding": true,
+		"dictionary": "Packages/Language - English/en_GB.dic",
+	"line_numbers": false,
+	"font_size": 13,
+	"ignored_packages":
+	[
+		"TextToSpeech",
+		"Vintage",
+	],
+}
+#+end_src
+
+AutoFileName: Suggests filenames or paths when you're typing
+
+Clickable URLs: Turns URLs in your text into clickable links
+
+Adds a command to Sublime Text that allows you to delete the file you're currently viewing/editing.
+
+DeleteBlankLines: Provides commands to delete blank lines
+
+Markdown Preview: Allows you to preview Markdown files in your browser. It can convert Markdown to HTML and refreshes the view as you make changes.
+
+PackageDev: Provides enhanced syntax highlighting and other tools for package development in Sublime Text.
+
+Terminus: Embeds a real terminal in Sublime Text, turning it into an integrated development environment (IDE)-like experience.
+
+Text Pastry: Extends the power of multi-cursors in Sublime Text, letting you insert numbers in series, manipulate selections, and more.
+
+Unicode Character Insert: Makes it easier to insert Unicode characters into your documents.
+
+InsertDate: Provides commands to insert the current date and/or time in various formats.
+
+#+begin_src JSON
+  [
+    {
+        "keys": ["ctrl+alt+t"],
+        "command": "toggle_terminus_panel",
+        "args": {
+            "cwd": "/home/tan/Documents"
+        }
+    },
+    {
+        "keys": ["escape"],
+        "command": "hide_panel",
+        "args": {
+            "panel": "terminus"
+        },
+        "context": [
+            {
+                "key": "panel_visible",
+                "operator": "equal",
+                "operand": true,
+                "match_all": true
+            },
+            {
+                "key": "panel_has_focus",
+                "operator": "equal",
+                "operand": false,
+                "match_all": true
+            }
+        ]
+    },
+        {
+        "keys": ["ctrl+alt+s"],
+        "command": "terminus_open",
+        "args": {
+            "cwd": "/home/tan/Documents"
+        }
+    },
+    {
+        "keys": ["ctrl+k", "ctrl+s"],
+        "command": "new_snippet"
+    },
+        {
+        "keys": ["ctrl+alt+c"],
+        "command": "close_workspace"
+    },
+    {
+        "keys": ["ctrl+k", "ctrl+t"],
+        "command": "title_case"
+    },
+    { "keys": ["ctrl+alt+e"], "command": "espeak" },
+    { "keys": ["escape"], "command": "stop_espeak" },
+    {
+    "keys": ["alt+2"],
+    "command": "move",
+    "args": {"by": "characters", "forward": true}
+},
+]
+#+end_src
