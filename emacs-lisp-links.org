@@ -5,7 +5,7 @@
 
 https://youtu.be/5fj9ub4yflI
 
-# Basic Intros
+* Basic Intros
 
 https://emacslife.com/how-to-read-emacs-lisp.html
 
@@ -17,7 +17,7 @@ https://bzg.fr/en/learn-emacs-lisp-in-15-minutes/
 
 https://www.fincher.org/tips/Languages/Emacs.shtml
 
-# More advanced
+* More advanced
 
 https://www.emacswiki.org/emacs/ElispCookbook
 
@@ -25,7 +25,7 @@ http://steve-yegge.blogspot.com/2008/01/emergency-elisp.html
 
 https://harryrschwartz.com/2014/04/08/an-introduction-to-emacs-lisp.html
 
-# Common Lisp
+* Common Lisp
 
 https://www.youtube.com/watch?v=-J_xL4IGhJA&ab_channel=MITOpenCourseWare
 
@@ -33,16 +33,16 @@ https://www.youtube.com/watch?v=wvU0JeYSoUs&list=PLvb7IKzi4E7SUdIh5XHicJQfKikvtJ
 
 https://github.com/norvig/paip-lisp
 
-# Lists of resources
+* Lists of resources
 
 https://github.com/chrisdone/elisp-guide
 
-# Standard Resources
+* Standard Resources
 
 https://www.gnu.org/software/emacs/manual/elisp.html
 
 https://www.gnu.org/software/emacs/manual/eintr.html
 
-# Mike Zamanski
+* Mike Zamanski
 
 https://www.youtube.com/watch?v=x9Qws7ZOksc&list=PL9KxKa8NpFxKGctwh4-BqjQvdSRhh4NV-
