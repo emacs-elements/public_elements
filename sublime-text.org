@@ -2,6 +2,10 @@
 #+STARTUP: showall
 #+DATE: Created on 21 October 2023 @10:16
 
+I use Sublime Text mainly as a notepad.
+
+I use Emacs for my major editing needs. 
+
 https://www.sublimetext.com/docs/linux_repositories.html
 
 Enter licence information
