@@ -2,4 +2,4 @@ This repo contains only the public files for my channel Emacs Elements:
 
 https://www.youtube.com/channel/UCEqYjPJdmEcUVfHmQwJVM9A
 
-*Notes that are not available here are available to members of the channel.*
+Notes not available here are available to all members of the channel.
