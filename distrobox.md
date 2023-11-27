@@ -94,8 +94,6 @@ The item should then appear on your Nixos menu.
 
 `alias ub='distrobox enter ubuntu'`
 
-**Note: It stands to reason that apps will only work if the container has been entered!**
-
 **Note: Apps will only run if dependencies are met!**
 
 `sudo apt-get install -f`
