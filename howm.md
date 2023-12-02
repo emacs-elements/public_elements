@@ -93,6 +93,8 @@ In the summary buffer, you can also type `@` to read all matching notes in a con
 
 https://leahneukirchen.org/blog/archive/2022/03/note-taking-in-emacs-with-howm.html
 
+*Do not forget to install `ripgrep`*
+
 # Comparisons
 
 - Rolo (Hyperbole) - Excellent
