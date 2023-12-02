@@ -22,7 +22,7 @@ There are two essential kinds of markup that howm cares about: *note titles* and
 
 Titles are prefaced by =
 
-LInks by >>> or <<<
+Links by >>> or <<<
 
 There are *two kinds* of links supported, namely *goto* and *come-from*
 
