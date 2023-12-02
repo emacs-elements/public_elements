@@ -6,29 +6,30 @@
 
 ## Introduction
 
-Today I want to introduce you to the note taking application called howm. It is a basic intro. Bear in mind that the Russian Manual is 80 pages long! Leah Neukirchen has written a good introduction in English. 
+I want to introduce you to the note taking application called howm. This is a basic introduction. Bear in mind that the Russian Manual of howm is 80 pages long! 
+
+Leah Neukirchen has written a good introduction in English:
 
 https://github.com/kaorahi/howm
 
-howm is a note taking program that is not that well-known in the Western world but which has gained quite a following in Japan. It is a 20-year-old mode that's still maintained by its original author Kazuyuki Hiraoka
+howm is a note taking program not too well-known in the Western world but which has gained quite a following in Japan. It is a 20-year-old mode that's still maintained by its original author *Kazuyuki Hiraoka*
 
-howm is short for “Hitori Otegaru Wiki Modoki”, which roughly translates to “Single-user Easy Wiki Mode”.
+howm is short for “Hitori Otegaru Wiki Modoki”, which translates to “Single-user Easy Wiki Mode”.
 
-It is a minor mode that works within your preferred major mode (i.e. Markdown or ORG)
+It is a minor mode that works within your preferred major mode (i.e. Markdown or ORG).
 
 Howm notes are kept in a directory hierarchy that you can organize as you wish; by default a date-based system is used and filenames include the current timestamp at creation.
 
 There are two essential kinds of markup that howm cares about: *note titles* and *links*.
 
-Titles are prefaced by =
+Titles are prefaced by `=`
+Links by `>>>` or `<<<`
 
-Links by >>> or <<<
+There are two kinds of supported links, namely *goto* and *come-from*
 
-There are *two kinds* of links supported, namely *goto* and *come-from*
+`>>>` howm -- These point TO keywords or to filenames
 
->>> howm -- These point TO keywords or to filenames
-
-<<< bank bankers -- These point "from" keywords. The string 'bank bankers' in all other files will now automatically point to this note.
+`<<<` bank bankers -- These are back-links which point "from" keywords. The string 'bank bankers' in all other files will now automatically point to this note.
 
 ## Main commands
 
@@ -48,7 +49,7 @@ To create a note: `C-c , c`
 `C-c , t`		howm-list-todo
 `C-c , y`		howm-list-schedule
 
-Howm provides *two* main features to access notes: *the menu* and the *summary buffer*.
+Howm provides *two* main features to access notes: *the menu* and the *summary buffer*:
 
 The hown menu is accessed through `C-c , ,`
 
@@ -68,7 +69,7 @@ In the summary buffer, you can also type `@` to read all matching notes in a con
 
 - Install from Melpa
 
-- Example Configuration
+- A sample configuration:
 
 ```emacs-lisp
   (require 'howm)
@@ -76,7 +77,7 @@ In the summary buffer, you can also type `@` to read all matching notes in a con
   (setq howm-directory "~/howm/") ;; home of two auxiliary files
   (setq howm-keyword-file (expand-file-name ".howm-keys" howm-home-directory))
   (setq howm-history-file (expand-file-name ".howm-history" howm-home-directory))
-  (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md") ;; Deafult to Markdown
+  (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md") ;; Default to Markdown
 
 ;; Use ripgrep for searching
   (setq howm-view-use-grep t)
@@ -92,11 +93,16 @@ In the summary buffer, you can also type `@` to read all matching notes in a con
 
 https://leahneukirchen.org/blog/archive/2022/03/note-taking-in-emacs-with-howm.html
 
-* Comparisons
+# Comparisons
 
 - Rolo (Hyperbole) - Excellent
 - Denote - Excellent
-- Org Mode - Fair to middling
-- Org Roam - Complex
+- Org Mode - Fair to middling (by itself)
+- Org Roam - Quite complex but good
 
-I use `howm`
+I have done videos on all the above. My preference is for howm.
+
+©  Raoul Comninos
+
+
+
