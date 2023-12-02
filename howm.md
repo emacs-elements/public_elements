@@ -1,6 +1,8 @@
 # Howm: A forgotten gem for note-taking
 
-# AI was **NOT USED** to make this video. Hooray!
+# AI was **NOT USED** to make this video or blog. Hooray!
+
+https://youtu.be/cCflzhDelvg
 
 <!-- Created on 30 November 2023 @03:46 -->
 
@@ -97,12 +99,25 @@ https://leahneukirchen.org/blog/archive/2022/03/note-taking-in-emacs-with-howm.h
 
 # Comparisons
 
-- Rolo (Hyperbole) - Excellent
+- HyRolo (Hyperbole) - Excellent
+
+https://youtu.be/hOuX2q9Re7A
+
 - Denote - Excellent
+
+https://youtu.be/UtSu3ydxKJ4
+
 - Org Mode - Fair to middling (by itself)
+
+https://youtu.be/avNl2yev8A4
+
 - Org Roam - Quite complex but good
 
-I have done videos on all the above. My preference is for howm.
+https://youtu.be/xcG0oqdqboM
+
+https://youtu.be/mWOpbuW0eKU
+
+My preference is for howm.
 
 ©  Raoul Comninos
 
