@@ -2,13 +2,16 @@
 
 # AI was **NOT USED** to make this video or blog. Hooray!
 
+https://github.com/kaorahi/howm#howm-write-fragmentarily-and-read-collectively
+https://www.emacswiki.org/emacs/HowmMode
+https://leahneukirchen.org/blog/archive/2022/03/note-taking-in-emacs-with-howm.html
 https://youtu.be/cCflzhDelvg
 
 <!-- Created on 30 November 2023 @03:46 -->
 
 ## Introduction
 
-I want to introduce you to the note taking application called howm. This is a basic introduction. Bear in mind that the Russian Manual of howm is 80 pages long! 
+I want to introduce you to the note taking application called howm. This is a basic introduction. Bear in mind that the Russian Manual of howm is 80 pages long!
 
 Leah Neukirchen has written a good introduction in English:
 
@@ -44,9 +47,7 @@ To create a note: `C-c , c`
 `C-c , e`		howm-remember
 `C-c , i`		howm-insert-keyword
 `C-c , l`		howm-list-recent
-`C-c , m`		howm-list-migemo
 `C-c , o`		howm-occur
-`C-c , p`		action-lock-goto-previous-link
 `C-c , r`		howm-refresh
 `C-c , t`		howm-list-todo
 `C-c , y`		howm-list-schedule
@@ -117,9 +118,6 @@ https://youtu.be/xcG0oqdqboM
 
 https://youtu.be/mWOpbuW0eKU
 
-My preference is for howm.
+My current preference is for howm.
 
 ©  Raoul Comninos
-
-
-
