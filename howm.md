@@ -3,8 +3,13 @@
 # AI was **NOT USED** to make this video or blog. Hooray!
 
 https://github.com/kaorahi/howm#howm-write-fragmentarily-and-read-collectively
+
 https://www.emacswiki.org/emacs/HowmMode
+
 https://leahneukirchen.org/blog/archive/2022/03/note-taking-in-emacs-with-howm.html
+
+https://kaorahi.github.io/howm/README.html
+
 https://youtu.be/cCflzhDelvg
 
 <!-- Created on 30 November 2023 @03:46 -->
@@ -118,6 +123,6 @@ https://youtu.be/xcG0oqdqboM
 
 https://youtu.be/mWOpbuW0eKU
 
-My current preference is for howm.
+**My current preference is for howm.**
 
 ©  Raoul Comninos
