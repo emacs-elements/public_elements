@@ -4,11 +4,11 @@
 
 https://github.com/kaorahi/howm#howm-write-fragmentarily-and-read-collectively
 
-https://www.emacswiki.org/emacs/HowmMode
-
 https://leahneukirchen.org/blog/archive/2022/03/note-taking-in-emacs-with-howm.html
 
 https://kaorahi.github.io/howm/README.html
+
+https://www.emacswiki.org/emacs/HowmMode
 
 https://youtu.be/cCflzhDelvg
 
