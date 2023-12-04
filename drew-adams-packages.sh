@@ -2,6 +2,7 @@
 # Author: Raoul Comninos
 # Description: Updates all of the Drew Adams files I use from Emacswiki
 # Date: 2023-06-09
+# URL: https://youtu.be/QFq3nhDozdI
 
 # The list of packages and libraries
 packages=(
