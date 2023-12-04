@@ -105,7 +105,7 @@ https://leahneukirchen.org/blog/archive/2022/03/note-taking-in-emacs-with-howm.h
 
 *Do not forget to install `ripgrep`*
 
-# Comparisons
+# Comparison
 
 - HyRolo (Hyperbole) - Excellent
 
