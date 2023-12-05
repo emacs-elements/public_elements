@@ -2,7 +2,6 @@
 # Author: Raoul Comninos
 # Description: Updates all of the Drew Adams files I use from Emacswiki
 # Date: 2023-06-09
-# URL: https://youtu.be/QFq3nhDozdI
 
 # The list of packages and libraries
 packages=(
@@ -14,6 +13,20 @@ packages=(
     bookmark+-bmu.el
     bookmark+-mac.el
     bookmark+.el
+    icicles.el
+    icicles-chg.el
+    icicles-cmd1.el
+    icicles-cmd2.el
+    icicles-doc1.el
+    icicles-doc2.el
+    icicles-face.el
+    icicles-fn.el
+    icicles-mac.el
+    icicles-mcmd.el
+    icicles-mode.el
+    icicles-opt.el
+    icicles-var.el
+    dired+.el
     highlight.el
     festival.el
     showkey.el
