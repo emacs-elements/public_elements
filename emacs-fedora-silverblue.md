@@ -43,7 +43,7 @@ sudo dnf install source-foundry-hack-fonts
 sudo dnf install vlc
 sudo dnf install okular gwenview
 sudo dnf install ImageMagick (requires restart of toolbox)
-pip install auto-editor
+sudo dnf install firefox
 
 # Update font cache
 
