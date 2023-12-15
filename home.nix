@@ -1,1 +1,0 @@
-/home/tan/.config/home-manager/home.nix
