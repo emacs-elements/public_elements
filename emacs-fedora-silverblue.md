@@ -44,6 +44,7 @@ sudo dnf install vlc
 sudo dnf install okular gwenview
 sudo dnf install ImageMagick (requires restart of toolbox)
 sudo dnf install firefox
+sudo dnf install pandoc
 
 # Update font cache
 
