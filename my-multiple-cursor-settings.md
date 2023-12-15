@@ -53,36 +53,3 @@ https://github.com/jwiegley/dot-emacs/blob/master/init.org
 
 https://sachachua.com/dotemacs/index.html
 
-That's all for today. take care folks.
-
-* Scrap
-
-I use these instead: kill whole line, and the Delete key.
-
-Here are the main commands and what they do:
-
-edit lines. This works on regions. 
-
-Puts a cursor at the beginning of each line.
-
-mark next like this. 
-
-Select a word and then invoke this command to select the next word exactly like it.
-
-skip to next like this. 
-
-This skips the next like word.
-
-mark next like this word. 
-
-Automatically selects words under the cursor.
-
-mark all like this. 
-
-Selects all the instances of a word you have already specified.
-
-mark all like this dwim. 
-
-Guesses what you want to select:  words, phrases, etc.
-
-Then there is one mouse command using Meta and the left mouse button.
