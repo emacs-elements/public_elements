@@ -31,20 +31,20 @@ sudo dnf install emacs.x86_64
 
 # Install Dependent Applications
 
-sudo dnf install python3-pip
-sudo dnf install poppler poppler-devel
-sudo dnf install espeak
-sudo dnf install ffmpeg
-sudo dnf install ripgrep
+sudo dnf install ImageMagick (requires restart of toolbox)
 sudo dnf install adobe-source-code-pro-fonts
 sudo dnf install dejavu-sans-mono-fonts
-sudo dnf install unifont-fonts
-sudo dnf install source-foundry-hack-fonts
-sudo dnf install vlc
+sudo dnf install espeak
+sudo dnf install ffmpeg
+sudo dnf install firefox (for markdown-export)
 sudo dnf install okular gwenview
-sudo dnf install ImageMagick (requires restart of toolbox)
-sudo dnf install firefox
-sudo dnf install pandoc
+sudo dnf install pandoc (for markdown-export)
+sudo dnf install poppler poppler-devel
+sudo dnf install python3-pip
+sudo dnf install ripgrep
+sudo dnf install source-foundry-hack-fonts
+sudo dnf install unifont-fonts
+sudo dnf install vlc
 
 # Update font cache
 
