@@ -1,4 +1,4 @@
- This repo contains only the public files for my channel Emacs Elements:
+ This repository contains only the public files for my channel Emacs Elements:
  
 [https://www.youtube.com/@emacselements](https://www.youtube.com/@emacselements)
  
