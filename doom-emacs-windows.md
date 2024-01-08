@@ -50,7 +50,7 @@ doom upgrade
 
 ## Start Emacs
 
-## Two config files
+## Three config files
 
 Doom uses three configuration files: 
 
