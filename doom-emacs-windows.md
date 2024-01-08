@@ -10,7 +10,7 @@
 - It's very fast
 - There's a helpful "Doom" community to be found on Discord
 - Utilizes the concept of a "leader key" for many of its keybindings
-	- `SPC f s` `SPC f s`
+	- `SPC f s`
 
 # How to install and Try out Doom Emacs on Windows
 
@@ -50,7 +50,7 @@ doom upgrade
 
 ## Start Emacs
 
-## Two config files
+## Three config files
 
 Doom uses three configuration files: 
 
