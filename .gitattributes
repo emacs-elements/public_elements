@@ -1,1 +1,5 @@
+# Set the default behavior to CRLF for all files
 * text=auto
+
+# Explicitly declare files that will always have LF line endings on checkout.
+*.md text eol=lf
